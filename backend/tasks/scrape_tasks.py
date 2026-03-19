@@ -3,10 +3,13 @@ from backend.scrapers.aliexpress_scraper import scrape_aliexpress
 from backend.scrapers.amazon_scraper import scrape_amazon
 from backend.analyzer.market_analyzer import analyze_market
 from backend.analyzer.product_filter import is_relevant
+from backend.scrapers.facebook_ads import search_facebook_ads
+
 from database.db import (
     products_collection,
     reports_collection,
     final_reports_collection,
+    ads_collection
 )
 
 
@@ -20,13 +23,35 @@ def scrape_product(product_name, country):
     # ========================
 
     aliexpress_products = scrape_aliexpress(product_name)
+    print("AliExpress raw:", len(aliexpress_products))
+    # ========================
+    # Facebook Ads
+    # ========================
+
+    try:
+        facebook_ads = search_facebook_ads(product_name)
+    except:
+        facebook_ads = []
+
+    print("Facebook Ads:", len(facebook_ads))
+
+
+    for ad in facebook_ads:
+        try:
+            ads_collection.insert_one({
+                "product": product_name,
+                "country": country,
+                **ad
+            })
+        except:
+            continue
 
     try:
         amazon_products = scrape_amazon(product_name)
     except:
         amazon_products = []
 
-    print("AliExpress raw:", len(aliexpress_products))
+    
 
     # ========================
     # 2) Merge + Filter + Save

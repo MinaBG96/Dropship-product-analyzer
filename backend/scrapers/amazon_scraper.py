@@ -40,7 +40,10 @@ def scrape_amazon(product_name):
             price = None
 
         try:
-            rating = item.find_element(By.CSS_SELECTOR, ".a-icon-alt").text.split(" ")[0]
+            rating_text = item.find_element(By.CSS_SELECTOR, ".a-icon-alt").get_attribute("innerHTML")
+            import re
+            match = re.search(r"\d+(\.\d+)?", rating_text)
+            rating = match.group() if match else None
         except:
             rating = None
 

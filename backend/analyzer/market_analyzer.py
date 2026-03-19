@@ -18,9 +18,29 @@ def clean_orders(orders):
 
 def clean_rating(rating):
     try:
-        return float(rating)
+        import re
+
+        if not rating:
+            return 3.5  # default متوسط السوق
+
+        match = re.search(r"\d+(\.\d+)?", str(rating))
+
+        if match:
+            return float(match.group())
+
+        return 3.5
+
     except:
-        return 0
+        return 3.5
+    
+    
+def get_competition_level(count):
+    if count <= 10:
+        return "low"
+    elif count <= 30:
+        return "medium"
+    else:
+        return "high"
 
 
 def analyze_market(products):
@@ -40,7 +60,10 @@ def analyze_market(products):
 
     for p in products:
         prices.append(clean_price(p.get("price", "")))
-        orders.append(clean_orders(p.get("orders", "")))
+        if p.get("source") == "amazon":
+            orders.append(clean_orders(p.get("reviews", "")))
+        else:
+            orders.append(clean_orders(p.get("orders", "")))
         ratings.append(clean_rating(p.get("rating", "")))
 
     avg_price = sum(prices) / len(prices) if prices else 0
@@ -48,9 +71,9 @@ def analyze_market(products):
     avg_rating = sum(ratings) / len(ratings) if ratings else 0
 
     return {
-        "products_found": len(products),
-        "avg_price": round(avg_price, 2),
-        "avg_orders": round(avg_orders, 2),
-        "avg_rating": round(avg_rating, 2),
-        "competition": "high" if len(products) > 20 else "low"
+    "products_found": len(products),
+    "avg_price": round(avg_price, 2),
+    "avg_orders": round(avg_orders, 2),
+    "avg_rating": round(avg_rating, 2),
+    "competition": get_competition_level(len(products))
     }

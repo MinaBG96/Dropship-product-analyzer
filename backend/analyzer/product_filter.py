@@ -34,4 +34,4 @@ def is_relevant(product_title, search_keyword):
     # ⚠️ بدل 60% نخليها 40% علشان المرونة
     relevance_ratio = score / len(keyword_words) if keyword_words else 0
 
-    return relevance_ratio >= 0.4
+    return relevance_ratio >= 0.2
