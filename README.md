@@ -145,6 +145,7 @@ Final Report Generation
 
 # 📁 PROJECT STRUCTURE
 
+```
 backend/
 │
 ├── analysis/
@@ -176,6 +177,7 @@ backend/
 database/
 └── db.py                         → MongoDB connection
 
+```
 ---
 
 # 🧠 BACKEND RESPONSIBILITIES
