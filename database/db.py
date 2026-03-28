@@ -10,7 +10,8 @@ client = MongoClient(MONGO_URI)
 
 db = client["dropship_analyzer"]
 
-products_collection = db["products"]
-reports_collection = db["reports"]
+products_collection      = db["products"]
+reports_collection       = db["reports"]
 final_reports_collection = db["final_reports"]
-ads_collection = db["ads"]
+ads_collection           = db["ads"]
+tasks_collection         = db["tasks"]        # tracks Celery task status per job

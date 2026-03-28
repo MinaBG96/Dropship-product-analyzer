@@ -1,0 +1,423 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        -224
+      ],
+      "id": "751fc422-ca5d-49a8-a1f1-8c8c96a9894a",
+      "name": "Telegram Trigger",
+      "webhookId": "368366ff-bcee-4e1f-b31b-e715bbe6c4cc",
+      "credentials": {
+        "telegramApi": {
+          "id": "wKlI4atM5bVxVvnQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a0cd3b54-2104-49d8-9a40-a4d623c7744e",
+              "leftValue": "={{$json[\"message\"][\"text\"]}}",
+              "rightValue": "/start",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "4a7e2c8d-a40a-4a84-a9e7-1793deaf29b5",
+              "leftValue": "={{$json[\"message\"][\"text\"]}}",
+              "rightValue": "start",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        560,
+        -224
+      ],
+      "id": "3a5a4af0-c027-483f-b0c5-b82b2dc87f4e",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json[\"message\"][\"chat\"][\"id\"]}}",
+        "text": "  ",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "عرض جميع الدكاترة 👨‍🏫",
+                    "additionalFields": {
+                      "callback_data": "doctors"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "عرض جميع المواد 📚",
+                    "additionalFields": {
+                      "callback_data": "courses"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "عرض ايام الاسبوع 📅",
+                    "additionalFields": {
+                      "callback_data": "days"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        768,
+        -384
+      ],
+      "id": "6d6c6a9e-e727-470f-9040-9ff881c4c87c",
+      "name": "Send a text message",
+      "webhookId": "d64674c4-42e8-456e-b262-92f632391c15",
+      "credentials": {
+        "telegramApi": {
+          "id": "wKlI4atM5bVxVvnQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -128,
+        64
+      ],
+      "id": "5414fed3-ce5a-4fbb-a462-40e702a317e2",
+      "name": "Telegram Trigger1",
+      "webhookId": "b2064803-caed-4d0d-b9e0-6824b76e9d5f",
+      "credentials": {
+        "telegramApi": {
+          "id": "wKlI4atM5bVxVvnQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0b582a4e-bbbd-400f-98c8-a9c41484c187",
+              "leftValue": "={{$json[\"callback_query\"][\"data\"]}}",
+              "rightValue": "doctors",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        640,
+        -16
+      ],
+      "id": "6f666d8f-c111-48f3-9cff-86a3291aae98",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WunZeO_Of6SSK3Y7IvPN-JXSGrholc5QA468xAk2f6Y",
+          "mode": "list",
+          "cachedResultName": "Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WunZeO_Of6SSK3Y7IvPN-JXSGrholc5QA468xAk2f6Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Doctors",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WunZeO_Of6SSK3Y7IvPN-JXSGrholc5QA468xAk2f6Y/edit#gid=0"
+        },
+        "options": {
+          "returnFirstMatch": false
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        912,
+        -32
+      ],
+      "id": "ea99155b-6d5c-419f-b09b-f2d729c1e9b9",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mO8ibNpXSjY3X6rz",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json[\"chat_id\"]}}",
+        "text": "={{$json[\"message\"]}}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "additionalFields": {
+                      "callback_data": ""
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1216,
+        96
+      ],
+      "id": "af6b48ec-13eb-4917-8047-c54798632b66",
+      "name": "Send a text message1",
+      "webhookId": "e5948a0f-a31a-4378-86db-9719dd5db750",
+      "credentials": {
+        "telegramApi": {
+          "id": "wKlI4atM5bVxVvnQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ced0b442-5a9d-4099-ae16-4b1f6eace66d",
+              "name": "chat_id",
+              "value": "={{$json[\"callback_query\"][\"message\"][\"chat\"][\"id\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "69da1816-3fb4-480b-ae83-89dbf58601cf",
+              "name": "action",
+              "value": "={{$json[\"callback_query\"][\"data\"]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -16
+      ],
+      "id": "0bba5cd5-eab6-4671-9bce-205edc812e36",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{$json[\"callback_query\"][\"id\"]}}",
+        "additionalFields": {
+          "show_alert": false,
+          "text": "جارٍ تحميل البيانات... ⏳"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        64,
+        160
+      ],
+      "id": "cff36b50-80fb-4801-8d52-8b0e70cfed45",
+      "name": "Answer Query a callback",
+      "webhookId": "62bf080e-f250-4ea3-bb02-8edb1660864b",
+      "alwaysOutputData": false,
+      "credentials": {
+        "telegramApi": {
+          "id": "wKlI4atM5bVxVvnQ",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Answer Query a callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer Query a callback": {
+      "main": [
+        []
+      ]
+    },
+    "Send a text message1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "223a2a17-ad47-43fd-9345-482b8262d155",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7d9019dfe6069c7c5617ad6b8b6f724af74491280fff61a2bec2a1b9672f6220"
+  },
+  "id": "AMrzSTg0GYTQCv1v",
+  "tags": []
+}

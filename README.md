@@ -1,4 +1,5 @@
 # Dropship-product-analyzer
+
 You are an expert software architect and startup engineer.
 
 I want you to fully understand, analyze, and document a SaaS project called:
@@ -57,6 +58,7 @@ The system collects data from multiple platforms:
 # ⚙️ TECHNOLOGY STACK
 
 ## Backend:
+
 - Python
 - FastAPI (API layer)
 - Celery (background tasks)
@@ -64,19 +66,23 @@ The system collects data from multiple platforms:
 - MongoDB (database)
 
 ## Scraping:
+
 - Selenium (dynamic websites)
 - Requests (API calls)
 
 ## Data Processing:
+
 - Custom analyzers (Python modules)
 - Market scoring engine
 
 ## Frontend (planned):
+
 - React.js
 - Tailwind CSS
 - Dashboard UI
 
 ## DevOps (planned):
+
 - Docker
 - Environment variables (.env)
 
@@ -87,19 +93,19 @@ The system collects data from multiple platforms:
 The system follows this pipeline:
 
 User Request
-   ↓
+↓
 API (FastAPI)
-   ↓
+↓
 Celery Task (async processing)
-   ↓
+↓
 Scrapers (multi-source)
-   ↓
+↓
 Data Filtering
-   ↓
+↓
 Database Storage
-   ↓
+↓
 Market Analysis
-   ↓
+↓
 Final Report Generation
 
 ---
@@ -107,28 +113,33 @@ Final Report Generation
 # 🧠 PROJECT PHASES
 
 ## Phase 1: Data Collection
+
 - Build scrapers for each platform
 - Normalize data
 - Store raw data in database
 
 ## Phase 2: Data Cleaning & Filtering
+
 - Remove irrelevant products
 - Normalize text (keywords)
 - Clean prices, ratings, orders
 
 ## Phase 3: Market Analysis
+
 - Analyze each platform separately:
-   - avg_price
-   - avg_orders
-   - avg_rating
-   - competition level
+  - avg_price
+  - avg_orders
+  - avg_rating
+  - competition level
 
 ## Phase 4: Multi-Market Aggregation
+
 - Combine all platforms
 - Compare pricing differences
 - Detect demand signals
 
 ## Phase 5: Final Scoring Engine
+
 - Demand Score
 - Competition Score
 - Profit Margin
@@ -136,6 +147,7 @@ Final Report Generation
 - Final Recommendation
 
 ## Phase 6: SaaS Layer (Future)
+
 - User accounts
 - Dashboard
 - Saved reports
@@ -178,6 +190,7 @@ database/
 └── db.py                         → MongoDB connection
 
 ```
+
 ---
 
 # 🧠 BACKEND RESPONSIBILITIES
@@ -243,21 +256,83 @@ Final system calculates:
 
 ---
 
+### Final Score Formula:
+
+```
+Final Score =
+  (Demand × 0.4) +
+  (Profit × 0.3) +
+  (Trend × 0.2) +
+  (Competition × 0.1)
+```
+
+---
+
+# 📦 Output Example
+
+```json
+{
+  "markets": {
+    "aliexpress": {...},
+    "amazon": {...}
+  },
+  "final_analysis": {
+    "score": 82.7,
+    "recommendation": "🔥 Winning Product"
+  }
+}
+```
+
+---
+
+## 🖥️ Frontend Dashboard (Planned)
+
+The frontend will provide:
+
+- Search input
+- Loading state
+- Final score display
+- Market comparison
+- Product list
+- Ads view
+
+---
+
+# 💰 SaaS Monetization Plan
+
+## Features:
+
+- User accounts
+- Saved reports
+- Dashboard
+- API access
+
+## Pricing:
+
+### Free Plan
+
+- Limited searches/day
+
+### Pro Plan
+
+- Unlimited searches
+- Advanced analytics
+
 # ✅ CURRENT STATUS CHECKLIST
 
 ✔ AliExpress scraper  
 ✔ Amazon scraper  
-✔ Facebook Ads scraper (Selenium)  
 ✔ MongoDB integration  
 ✔ Market analyzer  
 ✔ Product filtering  
 ✔ Final report generation  
-✔ Celery background processing  
+✔ Celery background processing
 
 ---
 
 # ⏳ REMAINING TASKS
 
+⬜ Facebook Ads scraper (Selenium)  
 ⬜ Google Trends integration  
 ⬜ TikTok scraper  
 ⬜ Smart scoring engine (multi-factor)  
@@ -279,5 +354,6 @@ Transform this system into a full SaaS platform that can:
 ---
 
 Now analyze this system deeply and suggest improvements, optimizations, and scaling strategies.
+
 - uvicorn backend.main:app --reload
 - celery -A backend.celery_worker worker --loglevel=info --pool=solo
